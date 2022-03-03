@@ -1,5 +1,5 @@
-defmodule ElixirCrawlyChess do
-  def decode_body_search(body) do
+defmodule ElixirCrawlyChess.SearchMaskChess do
+  def decode_search_mask(bin) do
     <<body_size::little-size(32), 1, rest::binary>> = body
     <<body::binary-size(body_size), rest::binary>> = rest
 
@@ -16,7 +16,7 @@ defmodule ElixirCrawlyChess do
     <<nFlags::little-size(32), rest::binary>> = rest
 
     %{
-      rest: rest,
+      rest: res,
       body_size: body_size,
       strWhMask: strWhMask,
       strBlMask: strBlMask,
@@ -32,7 +32,7 @@ defmodule ElixirCrawlyChess do
     }
   end
 
-  def encode_body(%{
+  def encode_search_mask(%{
     strWhMask: strWhMask,
     strBlMask: strBlMask,
     strTitle: strTitle,
@@ -51,7 +51,7 @@ defmodule ElixirCrawlyChess do
     strTitle_size = byte_size(strTitle)
     strPlaceMask_size = byte_size(strPlaceMask)
 
-    body = <<1, strWhMask_size::little-size(32), strWhMask::binary,
+    <<strWhMask_size::little-size(32), strWhMask::binary,
     strBlMask_size::little-size(32), strBlMask::binary,
     strTitle_size::little-size(32), strTitle::binary,
     strPlaceMask_size::little-size(32), strPlaceMask::binary,
@@ -62,29 +62,13 @@ defmodule ElixirCrawlyChess do
     nMinECO::little-integer-size(16),
     nMaxECO::little-integer-size(16),
     nFlags::little-size(32), rest::binary>>
-
-    body_size = byte_size(body)
-    <<body_size::little-size(32), body::binary>> <> body
   end
 
-  def encode_header_body(bin, %{
-    type: type,
-        nVal: nVal,
-        isSender: isSender,
-        userType: userType,
-        idReceiver: idReceiver,
-        msgId: msgId,
-        nSize: nSize
-  }) do
-     <<type::size(16), nVal::size(32), isSender::size(32), userType::size(16),
-    idReceiver::size(32), msgId::size(32), nSize::size(32) >> <> bin
+  def decode_logon do
+
   end
 
-  def decode_logon() do
-    IO.puts('Logon')
-  end
-
-  def decode(bin) do
+  def search_mask(bin) do
     <<type::size(16), nVal::size(32), isSender::size(32), userType::size(16),
       idReceiver::size(32), msgId::size(32), nSize::size(32), body::binary>> = bin
 
@@ -95,29 +79,9 @@ defmodule ElixirCrawlyChess do
       end
 
     %{
-      header: %{
-        type: type,
-        nVal: nVal,
-        isSender: isSender,
-        userType: userType,
-        idReceiver: idReceiver,
-        msgId: msgId,
-        nSize: nSize
-      },
+      type: type,
       body: body
     }
   end
 
-  def main() do
-    bin =
-      "G7wAAAAAAA8tBgAAAAAAAQAAAAc6AAAANgAAAAEJAAAAIE1hcnRpbmV6AAAAAAAAAAAAAAAAAAAAALgLAAAAAAAAAAAAAAAA//9wAQAAAAAAAA1R"
-      "G7wAAAAAAA8tBgAAAAAAAQAAAAc6AAAANwAAAAEJAAAAIE1hcnRpbmV6AAAAAAAAAAAAAAAAAAAAALgLAAAAAAAAAAAAAAAA//9wAQAAAAAAAA0BCQAAACBNYXJ0aW5legAAAAAAAAAAAAAAAAAAAAC4CwAAAAAAAAAAAAAAAP//cAEAAAAAAAAN"
-    bin_decode = bin |> Base.decode64!()
-    data = decode(bin_decode)
-    encode = encode_body(data.body)
-    encode_base64 = encode_header_body(encode, data.header) |> Base.encode64()
-    IO.inspect(encode_base64)
-  end
 end
-
-ElixirCrawlyChess.main
