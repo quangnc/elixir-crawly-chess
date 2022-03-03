@@ -7,13 +7,12 @@ defmodule ElixirCrawlyChess.Protocol.WSMsg do
 
     body_encode = case msg.header.type do
       7100 -> SearchMsg.encode(msg.body)
-      _ -> IO.inspect('hello')
+      _ -> decode_logon()
     end
 
     body_encode_size = byte_size(body_encode)
     content = header_encode <> <<body_encode_size::little-size(32)>> <> body_encode
     check_sum = checkSum(content)
-    IO.inspect(check_sum)
     content <> <<check_sum::size(16)>>
   end
 

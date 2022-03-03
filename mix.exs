@@ -20,9 +20,10 @@ defmodule ElixirCrawlyChess.MixProject do
   end
 
   # Run "mix help deps" to learn about dependencies.
+  # credo để refactor code
   defp deps do
     [
-
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
     ]
   end
 end

@@ -22,6 +22,9 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/html_entities" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/nimble_options" />
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/nimble_options" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/credo" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/file_system" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/bunt" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -44,5 +47,8 @@
     <orderEntry type="library" name="stream_data" level="project" />
     <orderEntry type="library" name="excoveralls" level="project" />
     <orderEntry type="library" name="hpack" level="project" />
+    <orderEntry type="library" name="file_system" level="project" />
+    <orderEntry type="library" name="bunt" level="project" />
+    <orderEntry type="library" name="inch_ex" level="project" />
   </component>
 </module>
