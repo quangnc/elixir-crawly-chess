@@ -10,7 +10,6 @@ defmodule ElixirCrawlyChess.Application do
     children = [
       # Starts a worker by calling: ElixirCrawlyChess.Worker.start_link(arg)
       # {ElixirCrawlyChess.Worker, arg}
-      {Finch, name: MyFinch}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
