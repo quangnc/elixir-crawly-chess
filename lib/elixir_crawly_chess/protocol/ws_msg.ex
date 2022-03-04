@@ -11,9 +11,10 @@ defmodule ElixirCrawlyChess.Protocol.WSMsg do
     end
 
     body_encode_size = byte_size(body_encode)
-    content = header_encode <> <<body_encode_size::little-size(32)>> <> body_encode
-    check_sum = checkSum(content)
-    content <> <<check_sum::size(16)>>
+    check_sum_body = check_sum(body_encode)
+
+    header_encode <> <<body_encode_size::little-size(32)>> <> body_encode <> <<check_sum_body::size(16)>>
+
   end
 
   def decode_logon() do
@@ -44,8 +45,16 @@ defmodule ElixirCrawlyChess.Protocol.WSMsg do
     }
   end
 
-  def checkSum(bin) do
-     :binary.bin_to_list(bin) |> Enum.sum()
-  end
+
+  def check_sum(bin) do
+        do_check_sum(bin, 0, 0)
+    end
+
+    defp do_check_sum(<<>>, _, sum) do rem(sum, 0x7fff) end
+    defp do_check_sum(<<b, rest::binary>>, i, sum) do
+        sum = (sum + b + i)
+        do_check_sum(rest, i+1, sum)
+    end
+
 
 end
