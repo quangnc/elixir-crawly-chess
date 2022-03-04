@@ -13,6 +13,14 @@ defmodule BinUtils do
    <<bin::little-integer-size(16)>>
   end
 
+  def write_size(bin) do
+   <<bin::size(16)>>
+  end
+
+  def write_size16(bin) do
+   <<bin::size(16)>>
+  end
+
   def read_string(<<size::little-size(32), str::binary-size(size), rest::binary>>) do
     {
       str,
@@ -33,6 +41,22 @@ defmodule BinUtils do
       rest
     }
   end
+
+  def read_size(<<number::size(32), rest::binary>>) do
+    {
+      number,
+      rest
+    }
+  end
+
+  def read_size16(<<number::size(16), rest::binary>>) do
+    {
+      number,
+      rest
+    }
+  end
+
+
 
 
 end

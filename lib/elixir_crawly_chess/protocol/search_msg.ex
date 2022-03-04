@@ -32,6 +32,7 @@ defmodule ElixirCrawlyChess.Protocol.SearchMsg do
   end
 
   def decode(bin) do
+    IO.inspect(bin)
     <<_::binary-size(5), rest::binary>> = bin
     {str_wh_mask, rest} = BinUtils.read_string(rest)
     {str_bl_mask, rest} = BinUtils.read_string(rest)
