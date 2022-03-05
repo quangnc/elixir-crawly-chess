@@ -14,7 +14,7 @@ defmodule BinUtils do
   end
 
   def write_size(bin) do
-   <<bin::size(16)>>
+   <<bin::size(32)>>
   end
 
   def write_size16(bin) do

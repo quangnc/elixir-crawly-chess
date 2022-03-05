@@ -20,7 +20,7 @@ defmodule LogonData do
       bytes_random: bytes_random
     }) do
 
-    bin_body = BinUtils.write_int(m_mode) <>
+    BinUtils.write_int(m_mode) <>
     BinUtils.write_int16(n_family) <>
     BinUtils.write_int16(n_major) <>
     BinUtils.write_int16(n_minor) <>
@@ -43,9 +43,6 @@ defmodule LogonData do
     BinUtils.write_int(flags) <>
     BinUtils.write_string(app_version) <>
     BinUtils.write_string(document_url)
-
-    bin_body_size = byte_size(bin_body)
-    <<bin_body_size::little-size(32), bin_body::binary>>
   end
 
   def decode(bin) do

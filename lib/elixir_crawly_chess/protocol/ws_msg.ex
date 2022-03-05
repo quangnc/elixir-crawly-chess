@@ -14,12 +14,14 @@ defmodule ElixirCrawlyChess.Protocol.WSMsg do
       _ -> decode_logon()
     end
 
+    body_encode_size = byte_size(body_encode)
+    bin_body = <<body_encode_size :: little - size(32)>> <> body_encode
+
     if has_msg_id do
-      body_encode_size = byte_size(body_encode)
       check_sum_body = check_sum(body_encode)
-      header_encode <> BinUtils.write_int(msg.header.msg_id) <> <<body_encode_size :: little - size(32)>> <> body_encode <> <<check_sum_body :: size(16)>>
+      header_encode <> BinUtils.write_int(msg.header.msg_id) <> bin_body <> BinUtils.write_size16(check_sum_body)
     else
-      header_encode <> body_encode
+      header_encode <> bin_body
     end
   end
 
@@ -44,7 +46,6 @@ defmodule ElixirCrawlyChess.Protocol.WSMsg do
     end
 
     {body, rest} = BinUtils.read_string(if(has_msg_id, do: msg.rest, else: rest))
-    IO.inspect(type)
 
     body_decoded = case type do
       7100 -> SearchMsg.decode(body)
@@ -76,6 +77,5 @@ defmodule ElixirCrawlyChess.Protocol.WSMsg do
     sum = (sum + b + i)
     do_check_sum(rest, i + 1, sum)
   end
-
 
 end
