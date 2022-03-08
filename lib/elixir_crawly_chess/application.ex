@@ -10,6 +10,7 @@ defmodule ElixirCrawlyChess.Application do
     children = [
       # Starts a worker by calling: ElixirCrawlyChess.Worker.start_link(arg)
       # {ElixirCrawlyChess.Worker, arg}
+      [applications: [:httpoison]]
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

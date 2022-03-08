@@ -23,7 +23,8 @@ defmodule ElixirCrawlyChess.MixProject do
   # credo để refactor code
   defp deps do
     [
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:httpoison, "~> 1.8"}
     ]
   end
 end

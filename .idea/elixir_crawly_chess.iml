@@ -50,5 +50,10 @@
     <orderEntry type="library" name="file_system" level="project" />
     <orderEntry type="library" name="bunt" level="project" />
     <orderEntry type="library" name="inch_ex" level="project" />
+    <orderEntry type="library" name="httpoison" level="project" />
+    <orderEntry type="library" name="hackney" level="project" />
+    <orderEntry type="library" name="mimic" level="project" />
+    <orderEntry type="library" name="httparrot" level="project" />
+    <orderEntry type="library" name="earmark" level="project" />
   </component>
 </module>
