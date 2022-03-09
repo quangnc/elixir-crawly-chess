@@ -14,6 +14,7 @@ defmodule ElixirCrawlyChess.Protocol.WSMsg do
         7100 -> SearchMsg.encode(msg.body)
         7002 -> LogonData.encode(msg.body)
         7004 -> ReadMessage.encode(msg.body)
+        7101 -> GetGame.encode(msg.body)
         _ -> decode_logon()
       end
 
@@ -58,7 +59,10 @@ defmodule ElixirCrawlyChess.Protocol.WSMsg do
         7100 -> SearchMsg.decode(body)
         7002 -> LogonData.decode(body)
         7004 -> ReadMessage.decode(body)
-        7106 -> GetData.decode(body)
+        # ONLINE_DB_NUMBERS
+        7106 -> ReadMessageSearch.decode(body)
+        7101 -> GetGame.decode(body)
+        7107 -> ReadMessageSearch.decode_ids_game(body)
         _ -> decode_logon()
       end
 
