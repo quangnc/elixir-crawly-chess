@@ -4,10 +4,10 @@ defmodule ElixirCrawlyChess.Protocol.WSMsg do
   def encode(msg, has_msg_id \\ true) do
     header_encode =
       BinUtils.write_size16(msg.header.type) <>
-        BinUtils.write_int(msg.header.n_val) <>
-        BinUtils.write_int(msg.header.is_sender) <>
-        BinUtils.write_int16(msg.header.user_type) <>
-        BinUtils.write_int(msg.header.id_receiver)
+        BinUtils.write_size(msg.header.n_val) <>
+        BinUtils.write_size(msg.header.is_sender) <>
+        BinUtils.write_size16(msg.header.user_type) <>
+        BinUtils.write_size(msg.header.id_receiver)
 
     body_encode =
       case msg.header.type do
@@ -36,10 +36,10 @@ defmodule ElixirCrawlyChess.Protocol.WSMsg do
 
   def decode(bin, has_msg_id \\ true) do
     {type, rest} = BinUtils.read_size16(bin)
-    {n_val, rest} = BinUtils.read_int(rest)
-    {is_sender, rest} = BinUtils.read_int(rest)
-    {user_type, rest} = BinUtils.read_int16(rest)
-    {id_receiver, rest} = BinUtils.read_int(rest)
+    {n_val, rest} = BinUtils.read_size(rest)
+    {is_sender, rest} = BinUtils.read_size(rest)
+    {user_type, rest} = BinUtils.read_size16(rest)
+    {id_receiver, rest} = BinUtils.read_size(rest)
 
     msg =
       if has_msg_id do
@@ -62,6 +62,7 @@ defmodule ElixirCrawlyChess.Protocol.WSMsg do
         # ONLINE_DB_NUMBERS
         7106 -> ReadMessageSearch.decode(body)
         7101 -> GetGame.decode(body)
+        # ONLINE_DB_GAMES
         7107 -> ReadMessageSearch.decode_ids_game(body)
         _ -> decode_logon()
       end

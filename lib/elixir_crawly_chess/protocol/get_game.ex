@@ -41,6 +41,6 @@ defmodule GetGame do
 
   defp do_bin_to_list(<<n_game_no::little-size(32), rest::binary>>, list) do
     list = list ++ [n_game_no]
-    do_bin_to_list(rest,  list)
+    do_bin_to_list(rest, list)
   end
 end
