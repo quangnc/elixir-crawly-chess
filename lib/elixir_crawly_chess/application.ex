@@ -9,11 +9,14 @@ defmodule ElixirCrawlyChess.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: ElixirCrawlyChess.Worker.start_link(arg)
-      # {ElixirCrawlyChess.Worker, arg}
+      # {ConnPoolWorker, []}
+      { WsClient, ["start"]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
+
+    # ElixirCrawlyChess.WSClient.start_link("wss://dbserver.chessbase.com/", )
     opts = [strategy: :one_for_one, name: ElixirCrawlyChess.Supervisor]
     Supervisor.start_link(children, opts)
   end

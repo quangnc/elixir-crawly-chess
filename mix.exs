@@ -14,6 +14,7 @@ defmodule ElixirCrawlyChess.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      applications: [:websockex],
       extra_applications: [:logger],
       mod: {ElixirCrawlyChess.Application, []}
     ]
@@ -23,7 +24,8 @@ defmodule ElixirCrawlyChess.MixProject do
   # credo để refactor code
   defp deps do
     [
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:websockex, "~> 0.4.3"},
     ]
   end
 end
