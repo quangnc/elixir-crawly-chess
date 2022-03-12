@@ -14,6 +14,7 @@ defmodule ElixirCrawlyChess.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      # applications: [:gun],
       applications: [:websockex],
       extra_applications: [:logger],
       mod: {ElixirCrawlyChess.Application, []}
@@ -26,6 +27,7 @@ defmodule ElixirCrawlyChess.MixProject do
     [
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:websockex, "~> 0.4.3"},
+      {:gun, git: "https://github.com/skygroup2/gun.git"}
     ]
   end
 end

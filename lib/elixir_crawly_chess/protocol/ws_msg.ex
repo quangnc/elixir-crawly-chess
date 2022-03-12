@@ -38,7 +38,7 @@ defmodule ElixirCrawlyChess.Protocol.WSMsg do
 
   def decode(bin, has_msg_id \\ true) do
     <<type::size(16), n_val::size(32), is_sender::size(32), user_type::size(16), id_receiver::size(32), rest::binary>> = bin
-    unless type in [7100, 7002, 7004, 7101] do
+    unless type in [7100, 7002, 7004, 7101, 7106, 7107] do
       %{
         header: %{
           type: type,

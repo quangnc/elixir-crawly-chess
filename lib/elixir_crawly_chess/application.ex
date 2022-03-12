@@ -11,6 +11,7 @@ defmodule ElixirCrawlyChess.Application do
       # Starts a worker by calling: ElixirCrawlyChess.Worker.start_link(arg)
       # {ConnPoolWorker, []}
       { WsClient, ["start"]}
+      # { WsGenserver, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
