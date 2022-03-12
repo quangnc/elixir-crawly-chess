@@ -27,6 +27,16 @@ defmodule BinUtils do
     }
   end
 
+  def read_byte_len_string(bin) do
+    <<size::little-size(8), rest::binary>> = bin
+    numberSize = size - 1
+    <<str::binary-size(numberSize), _::little-size(8), rest::binary>> = rest
+    {
+      str,
+      rest
+    }
+  end
+
   def read_int(<<int::little-integer-size(32), rest::binary>>) do
     {
       int,
@@ -35,6 +45,13 @@ defmodule BinUtils do
   end
 
   def read_int16(<<number::little-integer-size(16), rest::binary>>) do
+    {
+      number,
+      rest
+    }
+  end
+
+  def read_int8(<<number::little-integer-size(8), rest::binary>>) do
     {
       number,
       rest
