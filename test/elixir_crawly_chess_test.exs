@@ -78,7 +78,7 @@ defmodule ElixirCrawlyChessTest do
 
     ws_msg_decode = WSMsg.decode(bin_decode, false)
     #    ws_msg_encode = WSMsg.encode(ws_msg_decode, false)
-    #    IO.inspect(ws_msg_decode, limit: :infinity)
+        IO.inspect(ws_msg_decode, limit: :infinity)
     #    IO.inspect(ws_msg_encode, limit: :infinity)
     #    assert bin_decode == ws_msg_encode
   end

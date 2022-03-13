@@ -30,7 +30,8 @@ defmodule BinUtils do
   def read_byte_len_string(bin) do
     <<size::little-size(8), rest::binary>> = bin
     numberSize = size - 1
-    <<str::binary-size(numberSize), _::little-size(8), rest::binary>> = rest
+    <<str::binary-size(numberSize), _, rest::binary>> = rest
+
     {
       str,
       rest
